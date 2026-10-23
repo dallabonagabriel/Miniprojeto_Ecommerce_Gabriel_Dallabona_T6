@@ -1,4 +1,3 @@
-// src/relatorios.ts
 import { listarPedidos } from './pedidos';
 
 export function exibirRelatorioVendas(): void {

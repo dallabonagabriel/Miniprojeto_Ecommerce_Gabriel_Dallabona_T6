@@ -1,4 +1,3 @@
-// src/main.ts
 import { cadastrarProduto, listarProdutos } from './produtos';
 import { cadastrarCliente } from './clientes';
 import { adicionarAoCarrinho } from './carrinho';
@@ -7,12 +6,12 @@ import { exibirRelatorioVendas } from './relatorios';
 
 console.log("--- 1. PREPARANDO DADOS ---");
 cadastrarProduto({ id: 1, nome: "Teclado Mecânico", categoria: "Informática", preco: 250.00, estoque: 10 });
-cadastrarProduto({ id: 2, nome: "Rato Sem Fio", categoria: "Informática", preco: 120.00, estoque: 15 });
+cadastrarProduto({ id: 2, nome: "Mouse Sem Fio", categoria: "Informática", preco: 120.00, estoque: 15 });
 cadastrarCliente({ id: 1, nome: "João Silva", email: "joao@email.com" });
 
 console.log("\n--- 2. ENCHENDO O CARRINHO ---");
 adicionarAoCarrinho(1, 2); // João quer 2 teclados
-adicionarAoCarrinho(2, 1); // João quer 1 rato
+adicionarAoCarrinho(2, 1); // João quer 1 mouse
 
 console.log("\n--- 3. FINALIZANDO O PEDIDO ---");
 // Tentando finalizar para um cliente que não existe (falha esperada)

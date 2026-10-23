@@ -1,4 +1,3 @@
-// src/carrinho.ts
 import { ItemCarrinho } from './types';
 import { buscarProdutoPorId } from './produtos';
 
@@ -57,7 +56,7 @@ export function calcularTotalCarrinho(): number {
   for (const item of itensCarrinho) {
     const produto = buscarProdutoPorId(item.produtoId);
     if (produto) {
-      // O subtotal é calculado multiplicando o preço pela quantidade[cite: 1]
+      // O subtotal é calculado multiplicando o preço pela quantidade
       const subtotal = produto.preco * item.quantidade;
       total += subtotal;
     }

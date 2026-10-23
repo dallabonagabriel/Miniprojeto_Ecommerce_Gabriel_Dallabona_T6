@@ -1,7 +1,6 @@
-// src/clientes.ts
 import { Cliente } from './types';
 
-// O sistema deve iniciar com pelo menos 3 clientes pré-cadastrados[cite: 1]
+// O sistema deve iniciar com pelo menos 3 clientes pré-cadastrados
 let clientes: Cliente[] = [
   { id: 1, nome: "João Silva", email: "joao@email.com" },
   { id: 2, nome: "Maria Santos", email: "maria@email.com" },

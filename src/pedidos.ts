@@ -1,4 +1,3 @@
-// src/pedidos.ts
 import { Pedido } from './types';
 import { buscarClientePorId } from './clientes';
 import { buscarProdutoPorId, atualizarProduto } from './produtos';
