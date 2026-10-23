@@ -1,4 +1,4 @@
-import { ItemCarrinho } from './types';
+import type { ItemCarrinho } from './types';
 import { buscarProdutoPorId } from './produtos';
 
 let itensCarrinho: ItemCarrinho[] = [];
@@ -51,15 +51,45 @@ export function limparCarrinho(): void {
   itensCarrinho = [];
 }
 
+export function alterarQuantidade(produtoId: number, novaQuantidade: number): void {
+  const item = itensCarrinho.find(i => i.produtoId === produtoId);
+  if (!item) {
+    console.log(`Erro: Produto ID ${produtoId} não está no carrinho.`);
+    return;
+  }
+  if (novaQuantidade <= 0) {
+    console.log("Erro: A quantidade deve ser maior que zero.");
+    return;
+  }
+  const produto = buscarProdutoPorId(produtoId);
+  if (!produto) {
+    console.log(`Erro: Produto com ID ${produtoId} não existe mais no catálogo.`);
+    return;
+  }
+  if (novaQuantidade > produto.estoque) {
+    console.log(`Erro: Quantidade solicitada (${novaQuantidade}) excede o estoque disponível (${produto.estoque}).`);
+    return;
+  }
+  item.quantidade = novaQuantidade;
+  console.log(`Quantidade do produto "${produto.nome}" alterada para ${novaQuantidade}.`);
+}
+
+// Subtotal = preço unitário x quantidade
+export function calcularSubtotal(item: ItemCarrinho): number {
+  const produto = buscarProdutoPorId(item.produtoId);
+  return produto ? produto.preco * item.quantidade : 0;
+}
+
 export function calcularTotalCarrinho(): number {
-  let total = 0;
+  return itensCarrinho.reduce((soma, item) => soma + calcularSubtotal(item), 0);
+}
+
+export function exibirCarrinho(): void {
+  console.log("Itens do carrinho:");
   for (const item of itensCarrinho) {
     const produto = buscarProdutoPorId(item.produtoId);
-    if (produto) {
-      // O subtotal é calculado multiplicando o preço pela quantidade
-      const subtotal = produto.preco * item.quantidade;
-      total += subtotal;
-    }
+    const nome = produto ? produto.nome : `Produto ${item.produtoId}`;
+    console.log(`  ${item.quantidade}x ${nome} -> subtotal R$ ${calcularSubtotal(item).toFixed(2)}`);
   }
-  return total;
+  console.log(`  TOTAL: R$ ${calcularTotalCarrinho().toFixed(2)}`);
 }
